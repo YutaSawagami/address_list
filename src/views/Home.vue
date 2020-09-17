@@ -8,10 +8,11 @@
 
 
 <script>
-import { mapActions } from "vuex";
 export default {
  methods: {
- ...mapActions(["login"]),
+  login: function() {
+    this.$store.dispatch('login');
+    } 
  },
 };
 </script> 

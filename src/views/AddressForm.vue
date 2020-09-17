@@ -27,17 +27,35 @@
 
 <script>
 export default {
+ created() {
+    const address = this.$store.getters.getAddressById(this.$route.params.address_id);
+    console.log(this.$route.params.address_id + "でgetter呼ばれた");
+    console.log(address);
+    if (address) {
+        this.address = address;
+    }
+ }, 
  data () {
     return {
         address: {},
     }
  },
  methods: {
-    submit() {
-        this.$store.dispatch('addAddress', this.address);//actionsのaddAddress呼び出し
-        this.$router.push({ name: "addresses" }); // ルーティング
-        this.address = {};//空に戻す
-    }, 
- }
+  submit() {
+    if (this.$route.params.address_id) {
+        this.updateAddress({id: this.$route.params.address_id, address: this.address,});
+    } else {
+        this.addAddress(this.address);
+    }
+    this.$router.push({ name: "addresses" });
+    this.address = {};
+ },
+ updateAddresses: function(){
+     this.$store.dispatch("updateAddresses",{id: this.$route.params.address_id, address: this.address,});
+   },
+ addAddress: function() {
+     this.$store.dispatch('addAddress',this.address);
+ } 
+}
 }
 </script>

@@ -40,8 +40,12 @@ export default {
         };
     },
     computed: {
-        userName: this.$store.getters.userName,
-        photoURL: this.$store.getters.photoURL
+        userName: function() {
+            return this.$store.getters.userName;
+        },
+        photoURL: function(){
+            return this.$store.getters.photoURL;
+        }
     },
 };
 </script>

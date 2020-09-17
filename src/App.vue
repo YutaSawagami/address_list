@@ -3,7 +3,7 @@
  <v-app-bar app color="primary" dark>
  <v-app-bar-nav-icon @click.stop="toggleSideMenu">
  </v-app-bar-nav-icon>
- <v-toolbar-title>マイアドレス帳</v-toolbar-title>
+ <v-toolbar-title>マイアドレス帳!</v-toolbar-title>
  <v-spacer></v-spacer>
  <v-toolbar-items>
 <v-toolbar-items v-if="$store.state.login_user"> 
@@ -39,12 +39,12 @@ export default {
     if (user) {
       this.setLoginUser(user);//ログインユーザー情報をセット
       this.fetchAddresses();
-        if (this.$router.currentRoute.name === 'home'){
+        if (this.$router.currentRoute.name === 'Home'){
           this.$router.push({ name: "addresses" }, () => {}); 
         }
     } else {
       this.deleteLoginUser();//ログインユーザー情報を削除
-      this.$router.push({ name: "home" }, () => {}); 
+      this.$router.push({ name: "Home" }, () => {}); 
     }
   });
  }, 
@@ -54,19 +54,19 @@ export default {
  }),
  methods:{
    toggleSideMenu: function () {
-    this.$store.commit("toggleSideMenu"); 
+    this.$store.dispatch("toggleSideMenu"); 
    },
-   setLoginUser: function(){
-     this.$store.commit("setLoginUser");
+   setLoginUser: function(user){
+     this.$store.dispatch("setLoginUser", user);
    },
    deleteLoginUser: function(){
-     this.$store.commit("deleteLoginUser");
+     this.$store.dispatch("deleteLoginUser");
    },
    logout: function() {
-     this.$store.commit("logout");
+     this.$store.dispatch("logout");
    },
    fetchAddresses: function(){
-     this.$store.commit("fetchAddresses");
+     this.$store.dispatch("fetchAddresses");
    }
  }
 };
